@@ -209,7 +209,7 @@ class YoutubeDlWrap
     static bindAbortSignal(signal, process)
     {
         signal?.addEventListener('abort', () => {
-            process.kill();
+            process.kill(2); // SIGINT
         });
     }
 
