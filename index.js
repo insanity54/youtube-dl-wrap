@@ -208,9 +208,12 @@ class YoutubeDlWrap
 
     static bindAbortSignal(signal, process)
     {
-        signal?.addEventListener('abort', () => {
+        const kill = () => {
             process.kill(2); // SIGINT
-        });
+        };
+        if (typeof signal !== 'undefined' && signal.eventEmitter.listeners('abort').length === 0) {
+            signal.addEventListener('abort', kill)
+        }
     }
 
     static setDefaultOptions(options)
